@@ -20,10 +20,6 @@ import {
 
 import {
   Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
 import { NativeModules } from 'react-native';
@@ -84,7 +80,7 @@ function getEthereumGetAddressApdu(): string {
   data.writeUInt8(bip44Path.length, 0);
 
   bip44Path.forEach((element, index) => {
-    data.writeUInt32BE(element >>> 0, 1 + index * 4); // 👈 Fix here
+    data.writeUInt32BE(element >>> 0, 1 + index * 4);
   });
 
   const lc = data.length;
@@ -116,7 +112,11 @@ function App(): React.JSX.Element {
       switch (mode) {
         case 1: 
                 const fd = await UsbHandler.getFileDescriptor();
-                Alert.alert('File Descriptor', fd.toString());
+                if (fd.toInt() < 0) {
+                  Alert.alert('Error getting file descriptor, connection error.');
+                } else {
+                  Alert.alert('File Descriptor', fd.toString());
+                }
                 break;
         case 2: 
                 const apduCommand = Buffer.from([0xB0, 0x01, 0x00, 0x00, 0x00]); // get version
