@@ -19,21 +19,29 @@
   },
   "homepage": "https://github.com/holepunchto/bare-expo#readme",
   "dependencies": {
+    "@react-native-clipboard/clipboard": "^1.16.2",
+    "autopass": "^2.2.0",
+    "b4a": "^1.6.7",
+    "bare-fs": "^4.1.4",
+    "bare-rpc": "^0.2.5",
+    "corestore": "^7.4.2",
     "events": "^3.3.0",
     "expo": "^52.0.17",
     "expo-build-properties": "^0.13.1",
-    "expo-constants": "^17.0.3",
-    "expo-linking": "^7.0.3",
+    "expo-constants": "~17.0.8",
+    "expo-linking": "~7.0.5",
     "expo-router": "^4.0.11",
     "expo-system-ui": "^4.0.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-native": "^0.76.3",
-    "react-native-bare-kit": "^0.6.0",
-    "react-native-safe-area-context": "^5.1.0"
+    "react-native-bare-kit": "^0.6.14",
+    "react-native-safe-area-context": "4.12.0",
+    "bare-addon": "./bare-addon-1.0.0.tgz"
   },
   "devDependencies": {
     "@types/react": "^18.3.1",
+    "bare-pack": "^1.3.0",
     "prettier": "^3.3.3",
     "prettier-config-standard": "^7.0.0",
     "typescript": "^5.3.3"
