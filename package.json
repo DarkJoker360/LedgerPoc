@@ -5,8 +5,9 @@
   "main": "expo-router/entry",
   "scripts": {
     "start": "expo start",
-    "android": "expo run:android",
-    "ios": "expo run:ios"
+    "android": "npm run bundle && expo run:android",
+    "ios": "npm run bundle && expo run:ios",
+    "bundle": "./script/bundle.sh"
   },
   "repository": {
     "type": "git",
