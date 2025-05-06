@@ -1,48 +1,18 @@
 // /* global Bare, BareKit */
 
 import RPC from 'bare-rpc'
-import fs from 'bare-fs'
-import { RPC_RESET, RPC_MESSAGE } from '../rpc-commands.mjs'
+import { RPC_MESSAGE } from './rpc-commands.mjs'
+import { sendApdu } from 'bare-addon'
 
-import Autopass from 'autopass'
-import Corestore from 'corestore'
-const { IPC } = BareKit
 
-const path =
-  Bare.argv[0] === 'android'
-    ? '/data/data/to.holepunch.bare.expo/autopass-example'
-    : './tmp/autopass-example/'
-
-const rpc = new RPC(IPC, (req, error) => {
-  // Handle two way communication here
-})
-
-// For a clean start
-if (fs.existsSync(path)) {
-  fs.rmSync(path, {
-    recursive: true,
-    force: true
-  })
-}
-
-fs.mkdirSync(path)
-const invite = Bare.argv[1]
-const pair = Autopass.pair(new Corestore(path), invite)
-const pass = await pair.finished()
-Bare.on('teardown', () => pass.close())
-
-await pass.ready()
-
-pass.on('update', async (e) => {
-  const req = rpc.request(RPC_RESET)
-  req.send('data')
-
-  for await (const data of pass.list()) {
-    const value = JSON.parse(data.value)
-
-    if (value[0] === 'password') {
-      const req = rpc.request(RPC_MESSAGE)
-      req.send(JSON.stringify(value))
-    }
+const rpc = new RPC(BareKit.IPC, (req) => {
+  switch (req.command) {
+    case RPC_MESSAGE:
+      console.log(req.data.toString()) // ping
+      console.log(sendApdu)
+      req.reply(Buffer.from('pong'))
+      break;
+    default:
+      req.reply("Hello from Bare!");
   }
-})
+});
