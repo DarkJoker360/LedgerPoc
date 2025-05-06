@@ -123,12 +123,12 @@ function App(): React.JSX.Element {
                 const base64Command = apduCommand.toString('base64');
                 const responseBase64 = await UsbHandler.sendApduCommand(base64Command);
                 const responseBuffer = Buffer.from(responseBase64, 'base64'); 
-                Alert.alert('ADPU response:', responseBuffer.toString());
+                Alert.alert('APDU response:', responseBuffer.toString());
                 break;
         case 3: 
-                const adpuGetAddressCommand = await UsbHandler.sendApduCommand(getEthereumGetAddressApdu());
-                const responseAddress = Buffer.from(adpuGetAddressCommand, 'base64'); 
-                Alert.alert('ADPU response (Address):', responseAddress.toString());
+                const apduGetAddressCommand = await UsbHandler.sendApduCommand(getEthereumGetAddressApdu());
+                const responseAddress = Buffer.from(apduGetAddressCommand, 'base64'); 
+                Alert.alert('APDU response (Address):', responseAddress.toString());
                 break;
       }
     } catch (e: any) {
@@ -154,8 +154,8 @@ function App(): React.JSX.Element {
       </ScrollView>
       <Section title="Ledger PoC">
         Click the button below and check alert and logs
-        <Button title="Get Version (ADPU)" onPress={() => handleUsb(2)} />
-        <Button title="Get ETH Address (ADPU)" onPress={() => handleUsb(3)} />
+        <Button title="Get Version (apdu)" onPress={() => handleUsb(2)} />
+        <Button title="Get ETH Address (apdu)" onPress={() => handleUsb(3)} />
         <Button title="Get File Descriptor" onPress={() => handleUsb(1)} />
       </Section>
     </View>
