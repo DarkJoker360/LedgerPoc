@@ -11,6 +11,7 @@ import {
   StyleSheet
 } from 'react-native'
 
+import { Buffer } from 'buffer';
 import { Colors } from 'react-native/Libraries/NewAppScreen'
 import { NativeModules } from 'react-native'
 import useWorklet from '@/hooks/useWorklet'
@@ -112,11 +113,7 @@ export default function App() {
       switch (mode) {
         case 1:
           const fd = await UsbHandler.getFileDescriptor()
-          if (fd.toInt() < 0) {
-            Alert.alert('Error getting file descriptor, connection error.')
-          } else {
             Alert.alert('File Descriptor', fd.toString())
-          }
           break
         case 2:
           const apduCommand = Buffer.from([0xb0, 0x01, 0x00, 0x00, 0x00]) // get version
